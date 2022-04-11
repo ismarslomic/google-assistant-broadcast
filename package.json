@@ -4,7 +4,7 @@
   "description": "Broadcast message to your speakers with Google Assistant without stopping the music",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/ismarslomic/google-assistant-broadcast/issues"
   },
-  "homepage": "https://github.com/ismarslomic/google-assistant-broadcast#readme"
+  "homepage": "https://github.com/ismarslomic/google-assistant-broadcast#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "google-assistant": "^0.7.0"
+  }
 }
