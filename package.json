@@ -1,0 +1,24 @@
+{
+  "name": "google-assistant-broadcast",
+  "version": "1.0.0",
+  "description": "Broadcast message to your speakers with Google Assistant without stopping the music",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismarslomic/google-assistant-broadcast.git"
+  },
+  "keywords": [
+    "google assistant",
+    "broadcast",
+    "home assistant"
+  ],
+  "author": "Ismar Slomic <ismar@slomic.no>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ismarslomic/google-assistant-broadcast/issues"
+  },
+  "homepage": "https://github.com/ismarslomic/google-assistant-broadcast#readme"
+}
