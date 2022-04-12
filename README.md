@@ -1,4 +1,5 @@
 # google-assistant-broadcast
+[![Docker Image CI](https://github.com/ismarslomic/google-assistant-broadcast/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/ismarslomic/google-assistant-broadcast/actions/workflows/docker-image.yml)
 > Provides simple REST Api for broadcasting a message, without stopping 
 > the music on your Google Assistant enabled speakers (such as Sonos or Google Home).
 
