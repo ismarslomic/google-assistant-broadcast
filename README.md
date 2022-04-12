@@ -12,7 +12,9 @@ currently playing? Now you can, and I have tried to make it quit easy for you.
 
 I have made this after a lot of research, and it all started
 with [this](https://community.home-assistant.io/t/community-hass-io-add-on-google-assistant-webserver-broadcast-messages-without-interrupting-music/37274)
-thread on the Home Assistant forum. I want to give credits to:
+thread on the Home Assistant forum. 
+
+I want to give credits to:
 
 - [endoplasmic/google-assistant](https://github.com/endoplasmic/google-assistant) by @endoplasmic
 - [AndBobsYourUncle/google-assistant-webserver](https://github.com/AndBobsYourUncle/hassio-addons/blob/master/google-assistant-webserver/README.md)
@@ -25,7 +27,7 @@ thread on the Home Assistant forum. I want to give credits to:
    done for you.
 
 1. According to [Google Assistant doc](https://support.google.com/assistant/answer/9071582) you can
-   broadcast to all speakers og specific speakers. I have just tested to all.
+   broadcast to all speakers or specific speakers. I have just tested to all.
 
 ## Setup
 
@@ -94,7 +96,7 @@ notify:
 
 ### Using in Home Assistant
 
-Broadcast the message by using Notification service `ga_broadcast` (from previous step):
+Broadcast the message by calling the Notification service `ga_broadcast` (from previous step):
 
 ```yaml
 service: notify.ga_broadcast
@@ -119,6 +121,6 @@ POST http://localhost:8085/broadcast
 
 ```
 curl -X POST http://localhost:8085/broadcast \
- -d '{"message":"hello world!!"}' \
+ -d '{"message":"Hello world!!"}' \
  -H "Content-Type: application/json"
 ```
