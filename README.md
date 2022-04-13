@@ -35,10 +35,9 @@ I want to give credits to:
 
 - **docker** - you need to have Docker installed on your machine,
   read [Get Docker](https://docs.docker.com/get-docker/) for more information.
-- **Google OAuth 2.0 Client ID** - in order to authenticate yourself and get access to your Google
+- **Google OAuth 2.0 Client ID** and **Access Keys** - in order to authenticate yourself and get access to your Google
   Assistant
-- **Access Keys** - in order to authorise your self and give consent to the Google Assistant
-  Services to access your data
+  - You can find help and more information at [ismarslomic/google-assistant-oauth](https://github.com/ismarslomic/google-assistant-oauth)
 
 ### Alt 1: Run docker container with `docker-compose`
 
