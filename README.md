@@ -4,6 +4,11 @@
 > Run tiny web server which expose REST Api for sending broadcast text messages to
 > your Google Assistant, by using the [Google Assistant Service](https://developers.google.com/assistant/sdk/overview#google_assistant_service).
 
+## Get support
+Bugs and questions related to the source code and Docker image can be reported at 
+[Github Issues](https://github.com/ismarslomic/google-assistant-broadcast/issues) in the 
+[ismarslomic/google-assistant-broadcast](https://github.com/ismarslomic/google-assistant-broadcast) repo.
+
 ## About
 
 Ever wanted to [broadcast a voice message](https://support.google.com/assistant/answer/9071582) to

@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
     tags:
-      - 'v*'
+      - 'v*.*.*'
   pull_request:
     branches:
       - 'main'
@@ -15,34 +15,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - 
-      name: Checkout
-      uses: actions/checkout@v3
-    -
-      name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-    -
-      name: Set up Docker Buildx
-      id: buildx
-      uses: docker/setup-buildx-action@v1  
-    -
-      name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        file: ./Dockerfile
-        builder: ${{ steps.buildx.outputs.name }}
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast:latest
-        cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast:buildcache
-        cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast:buildcache,mode=max
-    - 
-      name: Docker Hub Description
-      uses: peter-evans/dockerhub-description@v3
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-        repository: ${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast
+      # Get the repository's code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Extract metadata from GIT to use in Docker Build Push step, see https://github.com/docker/metadata-action
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            google-assistant-broadcast
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+
+      # https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      # Support multiple architectures, https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      # https://github.com/docker/login-action
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      # https://github.com/docker/build-push-action/
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          push: true
+          tags: ${{ steps.<meta_id>.outputs.tags }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast:buildcache,mode=max
+
+      # Update Docker Hub repo with description from README.md, see https://github.com/peter-evans/dockerhub-description
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          repository: ${{ secrets.DOCKER_HUB_USERNAME }}/google-assistant-broadcast
+          short-description: "Simple REST Api for broadcasting a message, without stopping the music on your Google Assistant"
