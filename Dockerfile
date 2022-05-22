@@ -5,8 +5,23 @@ LABEL maintainer="Ismar Slomic <ismar@slomic.no>"
 ENV NODE_ENV production
 
 # Use a lightweight init system to properly spawn the Node.js runtime process with signals support
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 /usr/local/bin/dumb-init
-RUN chmod +x /usr/local/bin/dumb-init
+# We use pip to install dumb-init to make sure it works on amd and arm architectures
+RUN \
+	apk add --update \
+		python3 \
+		python3-dev \
+		py-pip \
+		build-base \
+	&& \
+	pip install dumb-init && \
+	apk del \
+		python3 \
+		python3-dev \
+		py-pip \
+		build-base \
+	&& \
+	rm -rf /var/cache/apk/* && \
+	:
 
 # Don’t run Node.js apps as root
 USER node
