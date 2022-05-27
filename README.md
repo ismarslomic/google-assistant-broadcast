@@ -46,7 +46,7 @@ I want to give credits to:
 
 ### Alt 1: Run docker container with `docker-compose`
 
-Create folder with name `config` and add files `client_secret.json` and `tokens.json`.
+Create a sub folder, ie `/home/pi/config`, and add files `client_secret.json` and `tokens.json`.
 
 `docker-compose.yml`
 
@@ -60,7 +60,7 @@ services:
     ports:
       - "8085:8085"
     volumes:
-      - ./config:/usr/src/config
+      - /home/pi/config:/usr/src/config
 
 ```
 
@@ -70,12 +70,12 @@ docker-compose up -d
 
 ### Alt 2: Run docker container with `docker run`
 
-Create folder with name `config` and add files `client_secret.json` and `tokens.json`.
+Create a sub folder, ie `/home/pi/config`, and add files `client_secret.json` and `tokens.json`.
 
 ```bash
 docker run -d --name google-assistant-broadcast \
 -p 8085:8085 \
--v /path/to/volume/config:/usr/src/config \
+-v /home/pi/config:/usr/src/config \
 --restart unless-stopped \
 ismarslomic/google-assistant-broadcast:latest
 ```
