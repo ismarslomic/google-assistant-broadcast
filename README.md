@@ -61,7 +61,6 @@ services:
       - "8085:8085"
     volumes:
       - /home/pi/config:/usr/src/config
-
 ```
 
 ```bash
@@ -128,3 +127,34 @@ curl -X POST http://localhost:8085/broadcast \
  -d '{"message":"Hello world!!"}' \
  -H "Content-Type: application/json"
 ```
+
+## Known issues
+#### 1. Broadcast request gets send, but not played/broadcast to the speakers
+I was able to get the container up & running, but when I send broadcast request via 
+Postman/CURL/Home Asisstant no message is played on my speakers and I get the following lines in 
+the logs (more details about this issue at [#5](https://github.com/ismarslomic/google-assistant-broadcast/issues/5)):
+```(bash)
+Sending message: Broadcast Hello world!
+[OK] Conversation Response:  empty
+[OK] Conversation Completed
+```
+This issue is related to the language settings we set in the container, when using the 
+Google Assistant SDK (default is `en-GB`). It's hard to say exactly what the issue is, but for me 
+it helped to switch from `en-US` to `en-GB`. It might also be necessary to play with the language 
+settings in the Google Assistant app for the same Google account.
+
+You can try changing the language settings by setting the environment variable `LANGUAGE` to one of the 
+[supported languages codes](https://developers.google.com/assistant/sdk/reference/rpc/languages).
+
+Add `-e LANGUAGE=<language_code>` option if running with `docker run` command or `environment` if you 
+use `docker-compose`:
+
+```yaml
+version: '3.8'
+services:
+  google-assistant-broadcast:
+    ...
+    environment:
+      - LANGUAGE=<language_code>
+```
+
