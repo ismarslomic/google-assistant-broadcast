@@ -12,7 +12,7 @@ const config = {
     savedTokensPath: process.env.TOKEN || "/usr/src/config/tokens.json"
   },
   conversation: {
-    lang: 'en-US', // defaults to en-US, but try other ones, it's fun!
+    lang: process.env.LANGUAGE || 'en-GB', // defaults to en-GB, but try other ones, it's fun!
     showDebugInfo: true, // default is false, bug good for testing AoG things,
     isNew: true,
   },
