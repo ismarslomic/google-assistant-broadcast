@@ -16,16 +16,54 @@ const config = {
   },
 };
 
+const checkFileExistsSync = (filepath) => {
+  let exists = true;
+
+  try {
+    fs.accessSync(filepath, fs.constants.F_OK);
+  } catch (e) {
+    exists = false;
+  }
+
+  return exists;
+};
+
+const readJsonFile = (filepath) => {
+  try {
+    return JSON.parse(fs.readFileSync(filepath, 'utf8'));
+  } catch (e) {
+    console.log(e);
+    exitAndLogError(`Failed reading JSON file at path ${filepath}`)
+  }
+}
+
+const exitAndLogError = (errorMsg) => {
+  console.log(`[ERROR] ${errorMsg}`)
+  process.exit(1)
+}
+
 function Assistant() {
   this.validateFiles = () => {
     if (!checkFileExistsSync(config.auth.keyFilePath)) {
-      throw Error(
+      exitAndLogError(
           `Client Secret file at path '${config.auth.keyFilePath}' does not exist.`)
     }
 
     if (!checkFileExistsSync(config.auth.savedTokensPath)) {
-      throw Error(
+      exitAndLogError(
           `Tokens file at path '${config.auth.savedTokensPath}' does not exist.`)
+    }
+
+    const secretFileContent = readJsonFile(config.auth.keyFilePath).installed;
+
+    if (secretFileContent.token_uri !== "https://oauth2.googleapis.com/token") {
+      exitAndLogError(
+          `The Client Secret file at path '${config.auth.keyFilePath}' has invalid 'token_uri' value. Expecting value 'https://oauth2.googleapis.com/token', but was '${secretFileContent.token_uri}'. Please make sure you download OAuth client file from GCP Console / API & Services / Credentials.`)
+    }
+
+    if (!secretFileContent.redirect_uris) {
+      exitAndLogError(
+          `The Client Secret file at path '${config.auth.keyFilePath}' is missing 'redirect_uris' property. Please make sure you download OAuth client file from GCP Console / API & Services / Credentials.`)
     }
   }
 
@@ -67,18 +105,6 @@ function Assistant() {
       });
     })
   }
-
-  const checkFileExistsSync = filepath => {
-    let exists = true;
-
-    try {
-      fs.accessSync(filepath, fs.constants.F_OK);
-    } catch (e) {
-      exists = false;
-    }
-
-    return exists;
-  };
 }
 
 module.exports = Assistant;

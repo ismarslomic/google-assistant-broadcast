@@ -36,15 +36,15 @@ server.use((req, res) => {
   .json({error: "Only POST /broadcast endpoint is supported"});
 })
 
+const serverInstance = server.listen(port, () => {
+  console.log(
+      `[OK] Google Assistant Broadcast started at: http://localhost:${port}`);
+})
+
 // Gracefully shutdown ExpressJS
 process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
-  server.close(() => {
+  console.log('[WARN] SIGTERM signal received: closing HTTP server');
+  serverInstance.close(() => {
     console.log('HTTP server closed');
   })
 })
-
-server.listen(port, () => {
-  console.log(
-      `Google Assistant Broadcast started at: http://localhost:${port}`);
-});
