@@ -1,11 +1,15 @@
 "use strict";
 
+require('log-timestamp');
 const express = require("express");
 const Assistant = require("./assistant");
 
 const server = express()
 const port = 8085;
 const assistant = new Assistant();
+
+// Validate required files
+assistant.validateFiles()
 
 server.use(express.json())
 
