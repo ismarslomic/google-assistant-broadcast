@@ -55,7 +55,7 @@ version: '3.8'
 services:
   google-assistant-broadcast:
     container_name: google-assistant-broadcast
-    image: ismarslomic/google-assistant-broadcast
+    image: ismarslomic/google-assistant-broadcast:latest
     restart: unless-stopped
     ports:
       - "8085:8085"
@@ -138,6 +138,14 @@ Sending message: Broadcast Hello world!
 [OK] Conversation Response:  empty
 [OK] Conversation Completed
 ```
+
+**Possible solution 1**
+
+Delete existing device registration at Google Actions Console and re-create it, more details 
+in [comment](https://github.com/ismarslomic/google-assistant-broadcast/issues/5#issuecomment-1151624488) on [#5](https://github.com/ismarslomic/google-assistant-broadcast/issues/5)
+
+**Possible solution 2**
+
 This issue is related to the language settings we set in the container, when using the 
 Google Assistant SDK (default is `en-GB`). It's hard to say exactly what the issue is, but for me 
 it helped to switch from `en-US` to `en-GB`. It might also be necessary to play with the language 
