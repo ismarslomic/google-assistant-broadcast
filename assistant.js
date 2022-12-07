@@ -69,7 +69,12 @@ function Assistant() {
 
   this.cast = async (message) => {
     const assistant = new GoogleAssistant(config.auth);
-    config.conversation.textQuery = `Broadcast ${message}`;
+
+    if(process.env.APPEND_BROADCAST_TO_MESSAGE === "false"){
+      config.conversation.textQuery = `${message}`;
+    } else {
+      config.conversation.textQuery = `Broadcast ${message}`;
+    }
 
     console.log(`Sending message (${config.conversation.lang}):`,
         config.conversation.textQuery);

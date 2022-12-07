@@ -1,6 +1,7 @@
 "use strict";
 
 require('log-timestamp');
+require('dotenv').config();
 const express = require("express");
 const Assistant = require("./assistant");
 

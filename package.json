@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/ismarslomic/google-assistant-broadcast#readme",
   "dependencies": {
-    "express": "^4.18.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "google-assistant": "^0.7.0",
     "log-timestamp": "^0.3.0"
   }
