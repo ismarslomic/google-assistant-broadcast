@@ -5,6 +5,13 @@
 > your Google Assistant, by using
 > the [Google Assistant Service](https://developers.google.com/assistant/sdk/overview#google_assistant_service).
 
+
+====== IMPORTANT - REPLACED by GOOGLE ASSISTANT SDK in HA! ======
+
+Home Assistant finally provides [Google Assistant SDK integration](https://www.home-assistant.io/integrations/google_assistant_sdk) from `v2023.1.0`. It supports broadcasting message without interrupting music/video playback and also sending text commands. This is exactly what you will get with setting up the `google-assistant-broadcast` docker container. Since this covers my needs, and is easier to setup, I will not continue maintaining this repo. You are free to continue/start using it, or forking it to continue improvements.  
+
+====== IMPORTANT! ======
+
 ## Get support
 
 Bugs and questions related to the source code and Docker image can be reported at
