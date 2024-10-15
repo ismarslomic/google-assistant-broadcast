@@ -1,4 +1,4 @@
-FROM node:22.9.0-alpine3.20
+FROM node:18.3.0-alpine3.16
 
 LABEL maintainer="Ismar Slomic <ismar@slomic.no>"
 
