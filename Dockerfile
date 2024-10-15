@@ -1,4 +1,4 @@
-FROM node:18.3.0-alpine3.16
+FROM node:22.9.0-bookworm-slim
 
 LABEL maintainer="Ismar Slomic <ismar@slomic.no>"
 
